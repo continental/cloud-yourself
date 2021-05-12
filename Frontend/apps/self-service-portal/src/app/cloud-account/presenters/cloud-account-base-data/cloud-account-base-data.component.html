@@ -1,0 +1,12 @@
+<h5>Base Data</h5>
+<p>Enter the base data of the cloud account.</p>
+<form #form="ngForm">
+  <div class="row">
+    <mui-text-box class="col s12" label="Name" name="name" required [(ngModel)]="cloudAccountBaseData.name"></mui-text-box>
+    <mui-text-box class="col s12" label="Description" name="description" required [(ngModel)]="cloudAccountBaseData.description"></mui-text-box>
+    <mui-text-box class="col s12 l6" label="Division" name="division" required [(ngModel)]="cloudAccountBaseData.division"></mui-text-box>
+    <mui-text-box class="col s12 l6" label="Legal Entity" name="legalEntity" required [(ngModel)]="cloudAccountBaseData.legalEntity"></mui-text-box>
+    <mui-text-box class="col s12 l6" label="Owner" name="owner" required [(ngModel)]="cloudAccountBaseData.owner"></mui-text-box>
+    <mui-text-box class="col s12 l6" label="Operational Contact" name="operationalContact" required [(ngModel)]="cloudAccountBaseData.operationalContact"></mui-text-box>
+  </div>
+</form>

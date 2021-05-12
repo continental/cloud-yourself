@@ -1,0 +1,11 @@
+<mui-view-header title="Edit Cloud Account">
+</mui-view-header>
+
+<div class="row" *ngIf="viewModel">
+    <div class="col s12">
+        <app-cloud-account-base-data #baseDataComponent [cloudAccountBaseData]="viewModel.baseData">
+        </app-cloud-account-base-data>
+
+        <button class="btn waves-effect" [disabled]="!baseDataComponent.form?.valid" (click)="onSaveBaseData(baseDataComponent)">Save</button>
+    </div>
+</div>

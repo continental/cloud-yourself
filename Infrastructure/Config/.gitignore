@@ -1,0 +1,2 @@
+# Exclude all Development Configs
+*.Development.json

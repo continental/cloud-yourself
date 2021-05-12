@@ -1,0 +1,71 @@
+version: '3.4'
+
+networks:
+  cloudyourself_network:
+    driver: bridge
+
+services:
+
+  gateways_coreapi:
+    image: cloud-yourself.gateways.coreapi
+    container_name: "CloudYourself-Gateways-CoreApi"
+    networks:
+      - cloudyourself_network
+    ports:
+      - "4100:4100"
+    environment:
+      ASPNETCORE_URLS: 'http://*:4100'
+      ASPNETCORE_ENVIRONMENT: Development
+    build:
+      context: ./Gateways/CoreApi/Src/
+      dockerfile: Dockerfile.debug
+    volumes: 
+      - ../Infrastructure/Config/General:/app/config/general
+      - ../Infrastructure/Config/AppSpecific:/app/config/appspecific
+
+  appservices_cloudaccounts:
+    image: cloud-yourself.appservices.cloudaccounts
+    container_name: "CloudYourself-AppServices-CloudAccounts"
+    networks:
+      - cloudyourself_network
+    ports:
+      - "4000:4000"
+    environment:
+      ASPNETCORE_URLS: 'http://*:4000'
+      ASPNETCORE_ENVIRONMENT: Development
+    build:
+      context: ./AppServices/CloudAccounts/Src/
+      dockerfile: Dockerfile.debug
+    volumes: 
+      - ../Infrastructure/Config/General:/app/config/general
+      - ../Infrastructure/Config/AppSpecific:/app/config/appspecific
+
+  appservices_azuresubscriptions:
+    image: cloud-yourself.appservices.azuresubscriptions
+    container_name: "CloudYourself-AppServices-AzureSubscriptions"
+    networks:
+      - cloudyourself_network
+    ports:
+      - "4001:4001"
+    environment:
+      ASPNETCORE_URLS: 'http://*:4001'
+      ASPNETCORE_ENVIRONMENT: Development
+    build:
+      context: ./AppServices/AzureSubscriptions/Src/
+      dockerfile: Dockerfile.debug
+    volumes: 
+      - ../Infrastructure/Config/General:/app/config/general
+      - ../Infrastructure/Config/AppSpecific:/app/config/appspecific
+  
+  infrastructure_sqlserver:
+    image: mcr.microsoft.com/mssql/server:2019-CU8-ubuntu-16.04
+    container_name: "CloudYourself-Infrastructure-SqlExpress"
+    networks:
+      - cloudyourself_network
+    ports: 
+      - "1433:1433"
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "Start@1357"
+      MSSQL_PID: "Express"
+

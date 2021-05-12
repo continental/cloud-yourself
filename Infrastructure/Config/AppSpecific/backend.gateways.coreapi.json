@@ -1,0 +1,6 @@
+{
+    "AppServiceBaseUrls": {
+        "CloudAccounts": "http://appservices_cloudaccounts:4000",
+        "AzureSubscriptions": "http://appservices_azuresubscriptions:4001"
+    }
+}

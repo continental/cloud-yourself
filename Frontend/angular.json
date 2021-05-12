@@ -1,0 +1,129 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "apps",
+  "projects": {
+    "self-service-portal": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "apps/self-service-portal",
+      "sourceRoot": "apps/self-service-portal/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "preserveSymlinks": true,
+            "baseHref": "/self-service-portal/",
+            "outputPath": "apps/self-service-portal/dist",
+            "index": "apps/self-service-portal/src/index.html",
+            "main": "apps/self-service-portal/src/main.ts",
+            "polyfills": "apps/self-service-portal/src/polyfills.ts",
+            "tsConfig": "apps/self-service-portal/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/self-service-portal/src/favicon.ico",
+              "apps/self-service-portal/src/assets",
+              "apps/self-service-portal/src/config"
+            ],
+            "styles": [
+              "apps/self-service-portal/src/styles.css"
+            ],
+            "scripts": [
+              "node_modules/materialize-css/dist/js/materialize.js"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/self-service-portal/src/environments/environment.ts",
+                  "with": "apps/self-service-portal/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "self-service-portal:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "self-service-portal:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "self-service-portal:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "apps/self-service-portal/src/test.ts",
+            "polyfills": "apps/self-service-portal/src/polyfills.ts",
+            "tsConfig": "apps/self-service-portal/tsconfig.spec.json",
+            "karmaConfig": "apps/self-service-portal/karma.conf.js",
+            "assets": [
+              "apps/self-service-portal/src/favicon.ico",
+              "apps/self-service-portal/src/assets"
+            ],
+            "styles": [
+              "apps/self-service-portal/src/styles.css"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/self-service-portal/tsconfig.app.json",
+              "apps/self-service-portal/tsconfig.spec.json",
+              "apps/self-service-portal/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "apps/self-service-portal/e2e/protractor.conf.js",
+            "devServerTarget": "self-service-portal:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "self-service-portal:serve:production"
+            }
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "self-service-portal"
+}

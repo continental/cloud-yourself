@@ -1,0 +1,15 @@
+<mui-view-header title="Create Tenant">
+</mui-view-header>
+
+<div class="row" *ngIf="viewModel">
+    <div class="col s12">
+        <p>Specify a name and a short description for the new tenant.</p>
+        <form #tenantForm="ngForm">
+            <div class="row">
+                <mui-text-box class="col s12" name="name" label="Name" required minlength="3" [(ngModel)]="$any(viewModel).baseData.name"></mui-text-box>
+                <mui-text-box class="col s12" name="description" label="Description" required [(ngModel)]="$any(viewModel).baseData.description"></mui-text-box>
+            </div>
+        </form>
+        <button class="btn" [disabled]="!tenantForm.valid" (click)="_onSave()">Save</button>
+    </div>
+</div>

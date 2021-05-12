@@ -1,0 +1,16 @@
+trigger:
+  branches:
+    include:
+    - feature/*
+    - enabler/*
+    - bugfix/*
+    - master
+  paths:
+    include:
+    - /Backend/Gateways/CoreApi/
+extends:
+  template: ../../../Infrastructure/Pipelines/dotnet-docker-image.yaml
+  parameters:
+    projectPath: 'Backend/Gateways/CoreApi'
+    imageName: 'cloudyourself-gateways-coreapi'
+    imageTag: '$(Build.BuildId)'

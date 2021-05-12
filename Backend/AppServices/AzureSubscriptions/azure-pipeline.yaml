@@ -1,0 +1,16 @@
+trigger:
+  branches:
+    include:
+    - feature/*
+    - enabler/*
+    - bugfix/*
+    - master
+  paths:
+    include:
+    - /Backend/AppServices/AzureSubscriptions/
+extends:
+  template: ../../../Infrastructure/Pipelines/dotnet-docker-image.yaml
+  parameters:
+    projectPath: 'Backend/AppServices/AzureSubscriptions'
+    imageName: 'cloudyourself-appservices-azuresubscriptions'
+    imageTag: '$(Build.BuildId)'

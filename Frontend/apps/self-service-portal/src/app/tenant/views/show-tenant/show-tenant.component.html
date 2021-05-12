@@ -1,0 +1,29 @@
+<mui-view-header title="Tenant">
+    <mui-view-header-action *ngIf="viewModel" actionName="Edit" iconName="edit" [routerLink]="['/tenants/edit', viewModel._links.self.href]"></mui-view-header-action>
+</mui-view-header>
+
+<div class="row" *ngIf="viewModel">
+    <div class="col s12">
+        <h5>Base Data</h5>
+        <label>Name</label>
+        <p>{{viewModel.baseData.name}}</p>
+        <label>Description</label>
+        <p>{{viewModel.baseData.description}}</p>
+    </div>
+    <div class="col s12">
+        <h5>Cloud Account Requests</h5>
+        <p *ngIf="!viewModel.requestedCloudAccounts.length">Currently there are no cloud account requests.</p>
+        <table *ngIf="viewModel.requestedCloudAccounts.length">
+            <tr>
+                <th>Name</th>
+                <th>Owner</th>
+                <th></th>
+            </tr>
+            <tr *ngFor="let ca of viewModel.requestedCloudAccounts">
+                <td>{{ca.baseData.name}}</td>
+                <td>{{ca.baseData.owner}}</td>
+                <td><button class="btn right" [disabled]="ca._tmp?.disableApprove" (click)="_onApproveCloudAccount(ca)"><i class="material-icons">check</i></button></td>
+            </tr>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,46 @@
+<mui-view-header title="Edit Tenant">
+</mui-view-header>
+
+<div class="row" *ngIf="viewModel">
+
+    <mui-card class="col s12">
+        <mui-card-content title="Base Data">
+            <p>Enter base data of the tenant in the form below.</p>
+            <form #baseDataForm="ngForm">
+                <div class="row">
+                    <mui-text-box class="col s12" name="name" label="Name" required minlength="3" [(ngModel)]="viewModel.baseData.name"></mui-text-box>
+                    <mui-text-box class="col s12" name="description" label="Description" required [(ngModel)]="viewModel.baseData.description"></mui-text-box>
+                </div>
+            </form>
+            <button class="btn" [disabled]="!baseDataForm.valid" (click)="_onSave(viewModel.baseData)">Save</button>
+        </mui-card-content>
+    </mui-card>
+
+    <mui-card class="col s12">
+        <mui-card-content title="Azure App Registration Settings">
+            <p>Specifiy the indentity to use to create subscriptions in form of an Azure App Registration below.</p>
+            <form #azureAppRegistrationForm="ngForm">
+                <div class="row">
+                    <mui-text-box class="col s12" name="tenantId" label="Directory (tenant) ID" required minlength="36" maxlength="36" [(ngModel)]="viewModel.azureAppRegistration.azureDirectoryTenantId"></mui-text-box>
+                    <mui-text-box class="col s12" name="clientId" label="Application (client) ID" required minlength="36" maxlength="36" [(ngModel)]="viewModel.azureAppRegistration.azureAppRegistrationId"></mui-text-box>
+                    <mui-text-box class="col s12" name="appSecret" label="Application (client) Secret" required type="password" [(ngModel)]="viewModel.azureAppRegistration.azureAppSecret"></mui-text-box>
+                </div>
+            </form>
+            <button class="btn" [disabled]="!azureAppRegistrationForm.valid" (click)="_onSave(viewModel.azureAppRegistration)">Save</button>
+        </mui-card-content>
+    </mui-card>
+
+    <mui-card class="col s12">
+        <mui-card-content title="Azure Management Target Settings">
+            <p>Specifiy the target azure management group and target enrollment account of the subscirption by filling the form below.</p>
+            <form #azureManagementTargetForm="ngForm">
+                <div class="row">
+                    <mui-text-box class="col s12" name="managementGroupId" label="Management Group ID" required minlength="3" [(ngModel)]="viewModel.azureManagementTarget.managementGroupId"></mui-text-box>
+                    <mui-text-box class="col s12" name="enrollmentAccountId" label="Enrollment Account ID" required minlength="36" [(ngModel)]="viewModel.azureManagementTarget.enrollmentAccountId"></mui-text-box>
+                </div>
+            </form>
+            <button class="btn" [disabled]="!azureManagementTargetForm.valid" (click)="_onSave(viewModel.azureManagementTarget)">Save</button>
+        </mui-card-content>
+    </mui-card>
+
+</div>

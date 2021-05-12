@@ -1,0 +1,70 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30804.86
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gateways", "Gateways", "{1DBB8415-2234-4C75-92B1-A14A7C63A747}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AppServices", "AppServices", "{371579C8-510D-4B1B-8860-C0211CF19AEC}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{98C3806B-01BC-4BC9-B8EF-8746BF2EBC9B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CloudAccounts", "AppServices\CloudAccounts\Src\CloudAccounts.csproj", "{1EF3DDF9-9C08-4227-A7BB-827BABFF58BE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreApi", "Gateways\CoreApi\Src\CoreApi.csproj", "{FCEFA463-D2D9-4182-BFE5-EF35A7A92094}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureSubscriptions", "AppServices\AzureSubscriptions\Src\AzureSubscriptions.csproj", "{A04B224B-68BA-45C3-9135-4359FF83BB17}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CoreApi", "CoreApi", "{24423D3C-4DD6-4E2E-88F3-06F455D22455}"
+	ProjectSection(SolutionItems) = preProject
+		Gateways\CoreApi\azure-pipeline.yaml = Gateways\CoreApi\azure-pipeline.yaml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AzureSubscriptions", "AzureSubscriptions", "{E5C103F7-1FE8-4F1D-8D31-8707DCF26850}"
+	ProjectSection(SolutionItems) = preProject
+		AppServices\AzureSubscriptions\azure-pipeline.yaml = AppServices\AzureSubscriptions\azure-pipeline.yaml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CloudAccounts", "CloudAccounts", "{C9D28DA8-B60B-4791-A768-2DB6572CA57F}"
+	ProjectSection(SolutionItems) = preProject
+		AppServices\CloudAccounts\azure-pipeline.yaml = AppServices\CloudAccounts\azure-pipeline.yaml
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{98C3806B-01BC-4BC9-B8EF-8746BF2EBC9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98C3806B-01BC-4BC9-B8EF-8746BF2EBC9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98C3806B-01BC-4BC9-B8EF-8746BF2EBC9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98C3806B-01BC-4BC9-B8EF-8746BF2EBC9B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1EF3DDF9-9C08-4227-A7BB-827BABFF58BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1EF3DDF9-9C08-4227-A7BB-827BABFF58BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1EF3DDF9-9C08-4227-A7BB-827BABFF58BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1EF3DDF9-9C08-4227-A7BB-827BABFF58BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FCEFA463-D2D9-4182-BFE5-EF35A7A92094}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCEFA463-D2D9-4182-BFE5-EF35A7A92094}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCEFA463-D2D9-4182-BFE5-EF35A7A92094}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCEFA463-D2D9-4182-BFE5-EF35A7A92094}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A04B224B-68BA-45C3-9135-4359FF83BB17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A04B224B-68BA-45C3-9135-4359FF83BB17}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A04B224B-68BA-45C3-9135-4359FF83BB17}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A04B224B-68BA-45C3-9135-4359FF83BB17}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1EF3DDF9-9C08-4227-A7BB-827BABFF58BE} = {C9D28DA8-B60B-4791-A768-2DB6572CA57F}
+		{FCEFA463-D2D9-4182-BFE5-EF35A7A92094} = {24423D3C-4DD6-4E2E-88F3-06F455D22455}
+		{A04B224B-68BA-45C3-9135-4359FF83BB17} = {E5C103F7-1FE8-4F1D-8D31-8707DCF26850}
+		{24423D3C-4DD6-4E2E-88F3-06F455D22455} = {1DBB8415-2234-4C75-92B1-A14A7C63A747}
+		{E5C103F7-1FE8-4F1D-8D31-8707DCF26850} = {371579C8-510D-4B1B-8860-C0211CF19AEC}
+		{C9D28DA8-B60B-4791-A768-2DB6572CA57F} = {371579C8-510D-4B1B-8860-C0211CF19AEC}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E0147B06-F16E-463C-9787-D1EA2A455E1B}
+	EndGlobalSection
+EndGlobal

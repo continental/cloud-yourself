@@ -1,0 +1,85 @@
+name: $(Build.DefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
+
+trigger:
+  branches:
+    include:
+    - feature/*
+    - enabler/*
+    - bugfix/*
+    - master
+  paths:
+    include:
+    - /Frontend/
+
+variables:
+ imageName: cloudyourself-frontend-selfserviceportal
+ imageTag: $(Build.BuildId)
+ buildNumber: $(Build.BuildNumber)
+
+stages:
+- stage: 'Build'
+  displayName: 'Build'
+  jobs:
+  - job: 'Compile'
+    displayName: 'Compile'
+    pool: 
+      vmImage: 'ubuntu-20.04'
+    steps:
+    
+    - task: Npm@1
+      displayName: 'npm install'
+      inputs:
+        command: 'install'
+        workingDir: 'Frontend'
+        verbose: false
+
+    - task: Npm@1
+      displayName: 'npm run build'
+      inputs:
+        command: 'custom'
+        workingDir: 'Frontend'
+        customCommand: 'run build'
+
+    - task: Docker@2
+      displayName: 'Build Image'
+      inputs:
+        containerRegistry: 'Cloud-Yourself Containers'
+        repository: '${{ variables.imageName }}'
+        command: 'buildAndPush'
+        Dockerfile: 'Frontend/apps/self-service-portal/Dockerfile'
+
+    - task: replacetokens@3
+      displayName: 'Replace tokens in Frontend/apps/self-service-portal/k8s-config.yaml'
+      inputs:
+        targetFiles: 'Frontend/apps/self-service-portal/k8s-config.yaml'
+    
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Artifact'
+      inputs:
+        PathtoPublish: 'Frontend/apps/self-service-portal/k8s-config.yaml'
+        ArtifactName: 'k8s config'
+
+- stage: 'Dev'
+  displayName: 'Development System'
+  jobs:
+  - deployment: 'DeployDev'
+    displayName: 'Deployment'
+    pool: 
+      vmImage: 'ubuntu-20.04'
+    environment: 'dev'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: Kubernetes@0
+            displayName: 'kubectl apply'
+            inputs:
+              kubernetesServiceConnection: 'Cloud-Yourself K8s Dev'
+              namespace: 'dev'
+              command: 'apply'
+              useConfigurationFile: true
+              configuration: '$(Pipeline.Workspace)/k8s config/k8s-config.yaml'
+              secretType: 'dockerRegistry'
+              containerRegistryType: 'Azure Container Registry'
+              azureSubscription: 'Cloud-Yourself Infrastructure'
+              azureContainerRegistry: '{"loginServer":"cloudyourselfcontainers.azurecr.io", "id" : "/subscriptions/eab20f9d-a65f-4635-84fc-cb7237e7324b/resourceGroups/Shared/providers/Microsoft.ContainerRegistry/registries/cloudyourselfcontainers"}'

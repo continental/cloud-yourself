@@ -1,0 +1,25 @@
+<mui-view-header title="Home">
+</mui-view-header>
+
+<div class="row" *ngIf="viewModel">
+  <mui-card class="col s12 m6" [routerLink]="['/tenants/list', viewModel._links.tenants.href]">
+    <mui-card-content title="Tenants">
+      <p></p>
+      <div class="row">
+        <mui-card-content-metric class="col m6" title="Count">
+          {{ viewModel.dashboardInfos.tenantCount }}
+        </mui-card-content-metric>
+      </div>
+    </mui-card-content>
+  </mui-card>
+  <mui-card class="col s12 m6" [routerLink]="['/cloud-accounts/list', viewModel._links.cloudAccounts.href]">
+    <mui-card-content title="Cloud Accounts">
+      <p></p>
+      <div class="row">
+        <mui-card-content-metric class="col m6" title="Count">
+          {{ viewModel.dashboardInfos.cloudAccountCount }}
+        </mui-card-content-metric>
+      </div>
+    </mui-card-content>
+  </mui-card>
+</div>

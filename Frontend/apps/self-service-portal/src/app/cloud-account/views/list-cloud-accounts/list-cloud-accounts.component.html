@@ -1,0 +1,24 @@
+<mui-view-header title="Cloud Accounts">
+  <mui-view-header-action actionName="Request" iconName="add" [routerLink]="['/cloud-accounts/request', viewModel?._links.request.href]"></mui-view-header-action>
+</mui-view-header>
+
+<div class="row" *ngIf="viewModel">
+  <mui-card class="col s12 m6 l6 xl3" *ngFor="let cloudAccountVm of viewModel.cloudAccounts" [routerLink]="['/cloud-accounts/show', cloudAccountVm._links?.self?.href]">
+    <mui-card-content [title]="cloudAccountVm.baseData.name">
+      <p>{{ cloudAccountVm.baseData.description }}</p>
+      <div class="row">
+        <div class="col s12">
+          <div>
+            <label>Tenant<span class="new badge" data-badge-caption="">{{ cloudAccountVm.state }}</span></label>
+          </div>
+          <div class="truncate">
+            {{ cloudAccountVm.tenant.baseData.name }}
+          </div>
+        </div>
+        <mui-card-content-metric class="col m6" title="Azure Subscriptions">
+          {{ cloudAccountVm.azureSubscriptionsCount}}
+        </mui-card-content-metric>
+      </div>
+    </mui-card-content>
+  </mui-card>
+</div>

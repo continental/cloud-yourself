@@ -1,0 +1,47 @@
+<mui-view-header title="Cloud Account">
+    <mui-view-header-action actionName="Edit" iconName="edit" [routerLink]="['/cloud-accounts/edit', viewModel?._links.self.href]"></mui-view-header-action>
+    <mui-view-header-dropdown iconName="add">
+        <ul class="collection">
+            <li class="collection-item"><a [routerLink]="['/azure-subscriptions/create', viewModel?._links.azureSubscriptionTemplate.href]">Azure Subscription</a></li>
+        </ul>
+    </mui-view-header-dropdown>
+</mui-view-header>
+
+<div class="row" *ngIf="viewModel">
+    <div class="col s12">
+        <h5>Tenant</h5>
+    </div>
+    <div class="col s12">
+        {{ viewModel.tenant.baseData.name }} <span class="new badge" data-badge-caption="">{{ viewModel.state }}</span>
+    </div>
+    <div class="col s12">
+        <h5>Base Data</h5>
+    </div>
+    <div class="col s12 m6">
+        <label>Name</label>
+        <p>{{viewModel.baseData.name}}</p>
+        <label>Description</label>
+        <p>{{viewModel.baseData.description}}</p>
+        <label>Operational Contact</label>
+        <p>{{viewModel.baseData.operationalContact}}</p>
+    </div>
+    <div class="col s12 m6">
+        <label>Division</label>
+        <p>{{viewModel.baseData.division}}</p>
+        <label>Legal Entity</label>
+        <p>{{viewModel.baseData.legalEntity}}</p>
+        <label>Owner</label>
+        <p>{{viewModel.baseData.owner}}</p>
+    </div>
+    <div class="col s12">
+        <h5>Azure Subscriptions</h5>
+    </div>
+</div>
+<div class="row" *ngIf="viewModel">
+    <mui-card class="col s12 m6 l6 xl3" *ngFor="let azureSubscription of viewModel.azureSubscriptions" [routerLink]="['/azure-subscriptions/show', azureSubscription._links?.self?.href]">
+        <mui-card-content [title]="azureSubscription.name">
+            <label>State</label>
+            <p>{{azureSubscription.state}}</p>
+        </mui-card-content>
+    </mui-card>
+</div>

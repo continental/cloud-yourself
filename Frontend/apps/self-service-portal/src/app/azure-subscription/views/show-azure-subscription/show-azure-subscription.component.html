@@ -1,0 +1,18 @@
+<mui-view-header title="Azure Subscription">
+    <mui-view-header-action *ngIf="viewModel" actionName="Cancel" iconName="cancel" (tap)="_onCancelSubscription()"></mui-view-header-action>
+</mui-view-header>
+
+<div class="row" *ngIf="viewModel">
+    <div class="col s12 m6">
+        <label>Name</label>
+        <p>{{viewModel.name}}</p>
+    </div>
+    <div class="col s12 m6">
+        <label>State</label>
+        <p>{{viewModel.state}}</p>
+    </div>
+    <div class="col s12">
+        <label>Azure Subscription Link</label>
+        <p>{{viewModel.subscriptionLink}}</p>
+    </div>
+</div>

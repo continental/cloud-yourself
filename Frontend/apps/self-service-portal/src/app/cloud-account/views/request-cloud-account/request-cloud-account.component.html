@@ -1,0 +1,17 @@
+<mui-view-header title="Cloud Account Request">
+</mui-view-header>
+
+<div class="row" *ngIf="viewModel">
+    <div class="col s12">
+        <h5>Tenant</h5>
+        <p>Choose a tenant where the cloud account shall be created in. The tenant can not be changed later!</p>
+        <form #tenantForm="ngForm">
+            <div class="row">
+                <mui-select class="col s12" label="Tenant" name="tenantId" required [options]="viewModel.tenants" optionValueKey="id" [(ngModel)]="viewModel.template.tenantId"></mui-select>
+            </div>
+        </form>
+        <app-cloud-account-base-data #baseDataComponent [cloudAccountBaseData]="viewModel.template.baseData">
+        </app-cloud-account-base-data>
+        <button class="btn" [disabled]="!(tenantForm.valid && baseDataComponent.form?.valid)" (click)="_onSave()">Save</button>
+    </div>
+</div>

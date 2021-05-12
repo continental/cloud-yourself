@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: selfserviceportal
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: selfserviceportal
+  template:
+    metadata:
+      labels:
+        app: selfserviceportal
+    spec:
+      containers:
+      - name: selfserviceportal
+        image: cloudyourselfcontainers.azurecr.io/#{imageName}#:#{imageTag}#
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: config
+          mountPath: /usr/share/nginx/html/self-service-portal/config
+          readOnly: true
+      volumes: 
+      - name: config
+        secret:
+          secretName: frontend-selfserviceportal-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: selfserviceportal
+spec:
+  ports:
+  - port: 80
+  selector:
+    app: selfserviceportal

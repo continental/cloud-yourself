@@ -1,0 +1,85 @@
+parameters:
+- name: projectPath
+  type: string
+- name: imageName
+  type: string
+- name: imageTag
+  type: string
+
+variables:
+ imageName: ${{ parameters.imageName }}
+ imageTag: ${{ parameters.imageTag }}
+
+trigger: none
+
+stages:
+- stage: 'Build'
+  displayName: 'Build'
+  jobs:
+  - job: 'Compile'
+    displayName: 'Compile'
+    pool: 
+      vmImage: 'ubuntu-20.04'
+    steps:
+    - checkout: self
+      submodules: true
+    - task: UseDotNet@2
+      displayName: 'Use .Net Core 5'
+      inputs:
+        version: 5.0.x
+    - task: DotNetCoreCLI@2
+      displayName: 'dotnet Restore'
+      inputs:
+        command: restore
+        projects: '${{ parameters.projectPath }}/**/*.csproj'
+    - task: DotNetCoreCLI@2
+      displayName: 'dotnet Publish'
+      inputs:
+        command: publish
+        publishWebProjects: false
+        projects: '${{ parameters.projectPath }}/Src/*.csproj'
+        arguments: '-p:PublishDir=obj/Docker/publish --no-restore'
+        zipAfterPublish: false
+        modifyOutputPath: false
+    - task: Docker@2
+      displayName: 'Build Docker Image'
+      inputs:
+        containerRegistry: 'Cloud-Yourself Containers'
+        repository: '${{ parameters.imageName }}'
+        command: 'buildAndPush'
+        Dockerfile: '${{ parameters.projectPath }}/Src/**/Dockerfile'
+        tags: '${{ parameters.imageTag }}'
+    - task: replacetokens@3
+      displayName: 'Replace tokens in ${{ parameters.projectPath }}/Src/k8s-config.yaml'
+      inputs:
+        targetFiles: '${{ parameters.projectPath }}/Src/k8s-config.yaml'
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Artifact'
+      inputs:
+        PathtoPublish: '${{ parameters.projectPath }}/Src/k8s-config.yaml'
+        ArtifactName: 'k8s config'
+
+- stage: 'Dev'
+  displayName: 'Development System'
+  jobs:
+  - deployment: 'DeployDev'
+    displayName: 'Deployment'
+    pool: 
+      vmImage: 'ubuntu-20.04'
+    environment: 'dev'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: Kubernetes@0
+            displayName: 'kubectl apply'
+            inputs:
+              kubernetesServiceConnection: 'Cloud-Yourself K8s Dev'
+              namespace: 'dev'
+              command: 'apply'
+              useConfigurationFile: true
+              configuration: '$(Pipeline.Workspace)/k8s config/k8s-config.yaml'
+              secretType: 'dockerRegistry'
+              containerRegistryType: 'Azure Container Registry'
+              azureSubscription: 'Cloud-Yourself Infrastructure'
+              azureContainerRegistry: '{"loginServer":"cloudyourselfcontainers.azurecr.io", "id" : "/subscriptions/eab20f9d-a65f-4635-84fc-cb7237e7324b/resourceGroups/Shared/providers/Microsoft.ContainerRegistry/registries/cloudyourselfcontainers"}'

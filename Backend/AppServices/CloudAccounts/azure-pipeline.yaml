@@ -1,0 +1,16 @@
+trigger:
+  branches:
+    include:
+    - feature/*
+    - enabler/*
+    - bugfix/*
+    - master
+  paths:
+    include:
+    - /Backend/AppServices/CloudAccounts/
+extends:
+  template: ../../../Infrastructure/Pipelines/dotnet-docker-image.yaml
+  parameters:
+    projectPath: 'Backend/AppServices/CloudAccounts'
+    imageName: 'cloudyourself-appservices-cloudaccounts'
+    imageTag: '$(Build.BuildId)'

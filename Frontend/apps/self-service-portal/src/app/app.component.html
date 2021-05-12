@@ -1,0 +1,24 @@
+<mui-root-container *ngIf="viewModel">
+    <mui-app-bar appTitle="Cloud Yourself" (mainMenuTap)="sideNav.toggle()"></mui-app-bar>
+
+    <mui-side-nav #sideNav mode="pushBelowAppBar" [initiallyIsOpen]="true">
+        <li>
+            <div class="user-view grey">
+                <div class="background">
+                <!-- <img src="https://place-hold.it/300x176/999"> -->
+                </div>
+            <img class="circle" [src]="userImage">
+            <span class="white-text name">{{userProfile?.givenName}} {{userProfile?.surname}}</span>
+            <span class="white-text email">{{userProfile?.userPrincipalName}}</span>
+          </div>
+        </li>
+        <li><a class="waves-effect" routerLink="/home"><i class="material-icons">home</i>Home</a></li>
+        <li><a class="waves-effect" [routerLink]="['/tenants/list', viewModel._links?.tenants?.href]"><i class="material-icons">folder</i>Tenants</a></li>
+        <li><a class="waves-effect" [routerLink]="['/cloud-accounts/list', viewModel._links?.cloudAccounts?.href]"><i class="material-icons">cloud</i>Cloud Accounts</a></li>
+    </mui-side-nav>
+
+    <mui-push-content>
+        <router-outlet></router-outlet>
+    </mui-push-content>
+
+</mui-root-container>

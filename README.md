@@ -8,5 +8,5 @@ At Continental we started this project internally with the goal to improve the o
 Cloud Yourself is currently in a very early development stage. We are currently working on two MVPs to prove that the overall idea and the vision for our [Self Service](https://github.com/continental/cloud-yourself/wiki/capability-self-service) and [Distributed Billing](https://github.com/continental/cloud-yourself/wiki/Capability-Distributed-Billing) capability is realizeable. There the system is not yet ready for productive use cases. 
 
 ## Contribution
-If you like this idea everyone is welcome to support us in our further development. You can support us by joining the development team or by hosting a test installation of Cloud Yourself in your environment and provide feedback to us. If your are interessted to contibute, don't hesitate to get in touch with us. 
+If you like this idea everyone is welcome to support us in our further development. You can support us by joining the development team or by hosting a test installation of Cloud Yourself in your environment and provide feedback to us. If your are interessted to contibute, don't hesitate to get in touch with us just by creating a new issue!
 

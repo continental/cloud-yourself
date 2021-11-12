@@ -1,0 +1,18 @@
+<mui-view-header title="Payer Accounts">
+  <mui-view-header-action *ngIf="viewModel" actionName="New" iconName="add" [routerLink]="['/payer-accounts/create', viewModel._links.createPayerAccountVm.href]"></mui-view-header-action>
+</mui-view-header>
+
+<div class="row" *ngIf="viewModel">
+  <mui-card class="col s12 m6 l4" *ngFor="let payerAccountVm of viewModel.payerAccounts" [routerLink]="['/payer-accounts/display/', payerAccountVm._links.displayPayerAccountVm.href]">
+    <mui-card-content [title]="payerAccountVm.id">
+      <div class="row">
+        <mui-card-content-metric class="col s6" title="Cost Center">
+          {{ payerAccountVm.baseData.costCenter }}
+        </mui-card-content-metric>
+        <mui-card-content-metric class="col s6" title="Profit Center">
+          {{ payerAccountVm.baseData.profitCenter }}
+        </mui-card-content-metric>
+      </div>
+    </mui-card-content>
+  </mui-card>
+</div>

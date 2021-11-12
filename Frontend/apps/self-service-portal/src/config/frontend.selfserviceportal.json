@@ -1,0 +1,10 @@
+{
+    "auth": {
+        "clientId": "XXX Create frontend.selfserviceportal.dev.json in config directory with your settings XXX",
+        "authority": "XXX Create frontend.selfserviceportal.dev.json in config directory with your settings XXX",
+        "scope": "XXX Create frontend.selfserviceportal.dev.json in config directory with your settings XXX"
+    },
+    "coreApi": {
+        "baseUrl": "XXX Create frontend.selfserviceportal.dev.json in config directory with your settings XXX"
+    }
+}

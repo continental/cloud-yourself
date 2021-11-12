@@ -1,0 +1,21 @@
+<mui-view-header title="Create Azure Managed Resources">
+</mui-view-header>
+
+<div class="row" *ngIf="viewModel">
+  <div class="col s12">
+      <p>Specify a name and a short description for the new managed resource.</p>
+      <form #managedResourceForm="ngForm">
+          <div class="row">
+              <h5 class="col s12">Base Data</h5>
+              <mui-text-box class="col s12" name="name" label="Name" required minlength="3" [(ngModel)]="viewModel.baseData.name"></mui-text-box>
+              <mui-text-box class="col s12" name="description" label="Description" required [(ngModel)]="viewModel.baseData.description"></mui-text-box>
+              <h5 class="col s12">Compliance Settings</h5>
+              <mui-text-box class="col s12" name="initiativeAssignmentName" label="Assignment Name" required minlength="3" [(ngModel)]="viewModel.complianceSettings.initiativeAssignmentName"></mui-text-box>
+              <mui-text-box class="col s12" name="initiativeDefinitionId" label="Definition ID" required [(ngModel)]="viewModel.complianceSettings.initiativeDefinitionId"></mui-text-box>
+              <h5 class="col s12">Template</h5>
+              <mui-text-area class="col s12" name="template" label="Template" required [(ngModel)]="viewModel.armTemplate.template"></mui-text-area>
+          </div>
+      </form>
+      <button class="btn" [disabled]="!managedResourceForm.valid" (click)="_onSave()">Save</button>
+  </div>
+</div>

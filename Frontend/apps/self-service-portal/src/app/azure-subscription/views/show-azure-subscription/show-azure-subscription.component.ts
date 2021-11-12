@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ViewBase } from 'fancy-ngx-hateoas-client';
+import { Component } from '@angular/core';
+import { ResourceBase, ViewBase } from 'fancy-ngx-hateoas-client';
 
 @Component({
   selector: 'app-show-azure-subscription',

@@ -1,0 +1,50 @@
+<mui-view-header title="Cost Matrix">
+</mui-view-header>
+
+<div class="row" *ngIf="viewModel">
+    <div class="col s12">
+
+        <!-- Collapsible over all payer accounts in this tenant -->
+        <mui-collapsible>
+            <li *ngFor="let payerAccountCost of viewModel.payerAccountCosts">
+                <div class="collapsible-header flow-text" style="display: block;" (click)="_onLoadCloudAccountCosts(payerAccountCost)"><b>{{payerAccountCost.costCenter}}<span class="right">{{payerAccountCost.allocationAmountSum}} {{payerAccountCost.currency}}</span></b></div>
+                <div class="collapsible-body">
+
+                    <!-- Collapsible over all cloud accounts for this payer account -->
+                    <mui-collapsible *ngIf="payerAccountCost.cloudAccountCosts">
+                        <li *ngFor="let cloudAccountCost of payerAccountCost.cloudAccountCosts">
+                            <div class="collapsible-header" style="display: block;" (click)="_onLoadCosts(cloudAccountCost)"><b>{{cloudAccountCost.cloudAccountName}}<span class="right">{{cloudAccountCost.allocationAmountSum}} {{cloudAccountCost.currency}}</span></b></div>
+                            <div class="collapsible-body">
+
+                                <!-- Table over all costs for this cloud account -->
+                                <table *ngIf="cloudAccountCost.costs">
+                                    <tr>
+                                        <th>Cost Type</th>
+                                        <th>Cost Id</th>
+                                        <th>Period Id</th>
+                                        <th>Allocation Percentage</th>
+                                        <th>Total Amount</th>
+                                        <th>Allocation Amount</th>
+                                        <th>Currency</th>
+                                    </tr>
+                                    <tr *ngFor="let cost of cloudAccountCost.costs">
+                                        <td>{{cost.costType}}</td>
+                                        <td>{{cost.costId}}</td>
+                                        <td>{{cost.periodId}}</td>
+                                        <td>{{cost.allocationPercentage/100 | percent}}</td>
+                                        <td>{{cost.totalAmount}}</td>
+                                        <td>{{cost.allocationAmount}}</td>
+                                        <td>{{cost.currency}}</td>
+                                    </tr>
+                                </table>
+
+                            </div>
+                        </li>
+                    </mui-collapsible>
+
+                </div>
+            </li>
+        </mui-collapsible>
+        
+    </div>
+</div>

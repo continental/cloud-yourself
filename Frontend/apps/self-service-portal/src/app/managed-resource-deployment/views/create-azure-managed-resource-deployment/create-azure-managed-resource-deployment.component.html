@@ -1,0 +1,34 @@
+<mui-view-header title="Create Azure Managed Resource Deployment">s
+</mui-view-header>
+
+<div class="row" *ngIf="viewModel">
+  <div class="col s12">
+      <h5>Managed Resource</h5>
+      <p>Base data of the managed resource to deploy.</p>
+      <label>Name</label>
+      <p>{{viewModel.baseData.name}}</p>
+      <label>Description</label>
+      <p>{{viewModel.baseData.description}}</p>
+  </div>
+  <div class="col s12">
+    <h5>Base Data</h5>
+    <p>Enter some base data for this managed resource deployment.</p>
+    <form #managedResourceDeploymentForm="ngForm">
+      <div class="row">
+          <mui-text-box class="col s12" name="name" label="Managed Resource Name" required [(ngModel)]="viewModel.name"></mui-text-box>
+      </div>
+    </form>
+  </div>
+  <div class="col s12">
+    <h5>Parameters</h5>
+    <p>Enter of modify the parameters needed for the selected managed resorce.</p>
+    <form #parametersForm="ngForm">
+      <div class="row">
+        <div *ngFor="let deployParam of viewModel.deployParams">
+          <mui-text-box class="col s12" [name]="deployParam.name" [label]="deployParam.label ? deployParam.label : deployParam.name" required [(ngModel)]="deployParam.value"></mui-text-box>
+        </div>
+      </div>
+    </form>
+    <button class="btn" [disabled]="!parametersForm.valid" (click)="_onDeploy()">Deploy</button>
+  </div>
+</div>

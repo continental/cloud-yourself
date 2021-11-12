@@ -12,7 +12,7 @@ export class HomeComponent {
 
   constructor(public appComponent: AppComponent) {
     appComponent.viewModel$.subscribe(appComponentVm => {
-      appComponentVm.fetch_home().then((vm: any) => {
+      appComponentVm.fetch_homeVm().then((vm: any) => {
         this.viewModel = vm;
       })
     });

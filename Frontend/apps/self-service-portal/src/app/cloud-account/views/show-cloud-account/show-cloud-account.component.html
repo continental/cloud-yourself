@@ -1,8 +1,17 @@
 <mui-view-header title="Cloud Account">
-    <mui-view-header-action actionName="Edit" iconName="edit" [routerLink]="['/cloud-accounts/edit', viewModel?._links.self.href]"></mui-view-header-action>
+    <mui-view-header-action actionName="Edit" iconName="edit"
+        [routerLink]="['/cloud-accounts/edit', viewModel?._links.editCloudAccountVm.href]"></mui-view-header-action>
     <mui-view-header-dropdown iconName="add">
         <ul class="collection">
-            <li class="collection-item"><a [routerLink]="['/azure-subscriptions/create', viewModel?._links.azureSubscriptionTemplate.href]">Azure Subscription</a></li>
+            <li class="collection-item"><a
+                [routerLink]="['/azure-subscriptions/add', viewModel?._links.addAzureSubscriptionVm.href]">
+                Azure Subscription</a></li>
+            <li class="collection-item"><a
+                [routerLink]="['/aws-accounts/add', viewModel?._links.addAwsAccountVm.href]">
+                Aws Account</a></li>
+            <li class="collection-item"><a
+                [routerLink]="['/allocation-keys/create', viewModel?._links.createAllocationKeyVm.href]">
+                Allocation Key</a></li>
         </ul>
     </mui-view-header-dropdown>
 </mui-view-header>
@@ -33,15 +42,51 @@
         <label>Owner</label>
         <p>{{viewModel.baseData.owner}}</p>
     </div>
+</div>
+
+<div class="row" *ngIf="viewModel">
     <div class="col s12">
         <h5>Azure Subscriptions</h5>
     </div>
-</div>
-<div class="row" *ngIf="viewModel">
-    <mui-card class="col s12 m6 l6 xl3" *ngFor="let azureSubscription of viewModel.azureSubscriptions" [routerLink]="['/azure-subscriptions/show', azureSubscription._links?.self?.href]">
+    <mui-card class="col s12 m6 l6 xl3" *ngFor="let azureSubscription of viewModel.azureSubscriptions"
+        [routerLink]="['/azure-subscriptions/show', azureSubscription._links.displayAzureSubscriptionVm.href]">
         <mui-card-content [title]="azureSubscription.name">
             <label>State</label>
             <p>{{azureSubscription.state}}</p>
+        </mui-card-content>
+    </mui-card>
+</div>
+
+<div class="row" *ngIf="viewModel">
+    <div class="col s12">
+        <h5>Aws Accounts</h5>
+    </div>
+    <mui-card class="col s12 m6 l6 xl3" *ngFor="let awsAccount of viewModel.awsAccounts"
+        [routerLink]="['/aws-accounts/show', awsAccount._links.displayAwsAccountVm.href]">
+        <mui-card-content [title]="awsAccount.name">
+            <label>State</label>
+            <p>{{awsAccount.state}}</p>
+        </mui-card-content>
+    </mui-card>
+</div>
+
+<div class="row" *ngIf="viewModel">
+    <div class="col s12">
+        <h5>Allocation Keys</h5>
+    </div>
+    <mui-card class="col s12 m6 l6 xl3" *ngFor="let allocationKey of viewModel.allocationKeys"
+        [routerLink]="['/allocation-keys/display', allocationKey._links.displayAllocationKeyVm.href]">
+        <mui-card-content [title]="allocationKey.baseData.allocationPercentage + ' %'">
+            <div class="row">
+                <div class="col s6">
+                    <label>Cost Center</label>
+                    <p>{{ allocationKey.payerAccount.baseData.costCenter }}</p>
+                </div>
+                <div class="col s6">
+                    <label>Profit Center</label>
+                    <p>{{ allocationKey.payerAccount.baseData.profitCenter }}</p>
+                </div>
+            </div>
         </mui-card-content>
     </mui-card>
 </div>

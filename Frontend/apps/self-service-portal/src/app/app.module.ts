@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 
 import { MaterializeUiCoreModule } from 'ngx-materialize-ui-core';
 
@@ -11,11 +11,11 @@ import { AppComponent } from './app.component';
 import { HateoasClientModule, SecurityTokenProvider } from 'fancy-ngx-hateoas-client';
 import { PublicClientApplication } from '@azure/msal-browser';
 import { MsalSecurityTokenProviderService } from './core/services/msal-security-token-provider.service';
-import { ConfigurationService } from './core/services/configuration.service';
+import { configurationInitializer, ConfigurationService } from './core/services/configuration.service';
 
 @NgModule({
-  declarations: [	
-    AppComponent,
+  declarations: [		
+    AppComponent
    ],
   imports: [
     BrowserModule,
@@ -27,6 +27,12 @@ import { ConfigurationService } from './core/services/configuration.service';
   ],
   bootstrap: [AppComponent],
   providers: [
+    {
+      provide: APP_INITIALIZER,
+      useFactory: configurationInitializer,
+      multi: true,
+      deps: [ConfigurationService]
+    },
     {
       provide: PublicClientApplication,
       deps: [ConfigurationService],

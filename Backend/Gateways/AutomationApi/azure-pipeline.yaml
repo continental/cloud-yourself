@@ -1,0 +1,16 @@
+trigger:
+  branches:
+    include:
+    - feature/*
+    - enabler/*
+    - bugfix/*
+    - master
+  paths:
+    include:
+    - /Backend/Gateways/AutomationApi/
+extends:
+  template: ../../../Infrastructure/Pipelines/dotnet-docker-image.yaml
+  parameters:
+    projectPath: 'Backend/Gateways/AutomationApi'
+    imageName: 'cloudyourself-gateways-automationapi'
+    imageTag: '$(Build.BuildId)'

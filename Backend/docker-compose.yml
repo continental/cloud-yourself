@@ -6,9 +6,9 @@ networks:
 
 services:
 
-  gateways_coreapi:
-    image: cloud-yourself.gateways.coreapi
-    container_name: "CloudYourself-Gateways-CoreApi"
+  gateways_selfserviceportalapi:
+    image: cloud-yourself.gateways.selfserviceportalapi
+    container_name: "CloudYourself-Gateways-SelfServicePortalApi"
     networks:
       - cloudyourself_network
     ports:
@@ -17,15 +17,32 @@ services:
       ASPNETCORE_URLS: 'http://*:4100'
       ASPNETCORE_ENVIRONMENT: Development
     build:
-      context: ./Gateways/CoreApi/Src/
+      context: ./Gateways/SelfServicePortalApi/Src/
       dockerfile: Dockerfile.debug
     volumes: 
       - ../Infrastructure/Config/General:/app/config/general
       - ../Infrastructure/Config/AppSpecific:/app/config/appspecific
 
-  appservices_cloudaccounts:
-    image: cloud-yourself.appservices.cloudaccounts
-    container_name: "CloudYourself-AppServices-CloudAccounts"
+  gateways_automationapi:
+    image: cloud-yourself.gateways.automationapi
+    container_name: "CloudYourself-Gateways-AutomationApi"
+    networks:
+      - cloudyourself_network
+    ports:
+      - "4101:4101"
+    environment:
+      ASPNETCORE_URLS: 'http://*:4101'
+      ASPNETCORE_ENVIRONMENT: Development
+    build:
+      context: ./Gateways/AutomationApi/Src/
+      dockerfile: Dockerfile.debug
+    volumes: 
+      - ../Infrastructure/Config/General:/app/config/general
+      - ../Infrastructure/Config/AppSpecific:/app/config/appspecific
+
+  appservices_masterdata:
+    image: cloud-yourself.appservices.masterdata
+    container_name: "CloudYourself-AppServices-MasterData"
     networks:
       - cloudyourself_network
     ports:
@@ -34,15 +51,15 @@ services:
       ASPNETCORE_URLS: 'http://*:4000'
       ASPNETCORE_ENVIRONMENT: Development
     build:
-      context: ./AppServices/CloudAccounts/Src/
+      context: ./AppServices/MasterData/Src/
       dockerfile: Dockerfile.debug
     volumes: 
       - ../Infrastructure/Config/General:/app/config/general
       - ../Infrastructure/Config/AppSpecific:/app/config/appspecific
 
-  appservices_azuresubscriptions:
-    image: cloud-yourself.appservices.azuresubscriptions
-    container_name: "CloudYourself-AppServices-AzureSubscriptions"
+  appservices_azure:
+    image: cloud-yourself.appservices.azure
+    container_name: "CloudYourself-AppServices-Azure"
     networks:
       - cloudyourself_network
     ports:
@@ -51,7 +68,41 @@ services:
       ASPNETCORE_URLS: 'http://*:4001'
       ASPNETCORE_ENVIRONMENT: Development
     build:
-      context: ./AppServices/AzureSubscriptions/Src/
+      context: ./AppServices/Azure/Src/
+      dockerfile: Dockerfile.debug
+    volumes: 
+      - ../Infrastructure/Config/General:/app/config/general
+      - ../Infrastructure/Config/AppSpecific:/app/config/appspecific
+
+  appservices_billing:
+    image: cloud-yourself.appservices.billing
+    container_name: "CloudYourself-AppServices-Billing"
+    networks:
+      - cloudyourself_network
+    ports:
+      - "4002:4002"
+    environment:
+      ASPNETCORE_URLS: 'http://*:4002'
+      ASPNETCORE_ENVIRONMENT: Development
+    build:
+      context: ./AppServices/Billing/Src/
+      dockerfile: Dockerfile.debug
+    volumes: 
+      - ../Infrastructure/Config/General:/app/config/general
+      - ../Infrastructure/Config/AppSpecific:/app/config/appspecific
+
+  appservices_aws:
+    image: cloud-yourself.appservices.aws
+    container_name: "CloudYourself-AppServices-AWS"
+    networks:
+      - cloudyourself_network
+    ports:
+      - "4003:4003"
+    environment:
+      ASPNETCORE_URLS: 'http://*:4003'
+      ASPNETCORE_ENVIRONMENT: Development
+    build:
+      context: ./AppServices/Aws/Src/
       dockerfile: Dockerfile.debug
     volumes: 
       - ../Infrastructure/Config/General:/app/config/general

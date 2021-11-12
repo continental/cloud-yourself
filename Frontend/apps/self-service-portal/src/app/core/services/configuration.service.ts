@@ -1,25 +1,37 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'apps/self-service-portal/src/environments/environment';
 
-// Glogal configuration variables included by index.html
-declare var config: any;
-declare var configDev: any;
+/** A factory function to provide an app initializer function responsible to load the configuration. */
+export function configurationInitializer(configService: ConfigurationService) {
+  return () => configService.loadConfiguration();
+}
 
-@Injectable({
-  providedIn: 'root'
-})
+/** A service to get the runtime configuration of the system. */
+@Injectable({ providedIn: 'root' })
 export class ConfigurationService {
 
+  // Holds the current configuration
   private _configuration: any = {};
 
-  constructor() { 
-    if(configDev) {
-      this._configuration = configDev;
+  constructor(private _httpClient: HttpClient) { }
+
+  /** Loads the configuration from a json file on backend. */
+  loadConfiguration(): Promise<any> {
+    if(environment.production) {
+      return this._httpClient.get('./config/frontend.selfserviceportal.json')
+                             .toPromise()
+                             .then(config => this._configuration = config);
     } else {
-      this._configuration = config;
+      return this._httpClient.get('./config/frontend.selfserviceportal.dev.json')
+                             .toPromise()
+                             .then(config => this._configuration = config);
     }
   }
 
+  /** Get the current configuration. */
   get currentConfig() {
     return this._configuration;
   }
+
 }

@@ -1,0 +1,15 @@
+{
+    "AppServiceBaseUrls": {
+        "MasterData": "http://appservices_masterdata:4000",
+        "Azure": "http://appservices_azure:4001",
+        "Billing": "http://appservices_billing:4002",
+        "Aws": "http://appservices_aws:4003"
+    },
+    "AzureAd": {
+        "Instance": "https://login.microsoftonline.com/",
+        "Domain": "XXX Enter your data here XXX",
+        "TenantId": "XXX Enter your data here XXX",
+        "ClientId": "XXX Enter your data here XXX",
+        "Audience": "XXX Enter your data here XXX"
+    }
+}

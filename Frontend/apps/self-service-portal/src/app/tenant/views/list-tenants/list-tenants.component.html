@@ -1,9 +1,9 @@
 <mui-view-header title="Tenants">
-  <mui-view-header-action *ngIf="viewModel" actionName="New" iconName="add" [routerLink]="['/tenants/create', viewModel._links.template.href]"></mui-view-header-action>
+  <mui-view-header-action *ngIf="viewModel" actionName="New" iconName="add" [routerLink]="['/tenants/create', viewModel._links.createTenantVm.href]"></mui-view-header-action>
 </mui-view-header>
 
 <div class="row" *ngIf="viewModel">
-  <mui-card class="col s12 m6 l4 xl3" *ngFor="let tenantVm of viewModel.tenants" [routerLink]="['/tenants/show', tenantVm._links.self.href]">
+  <mui-card class="col s12 m6 l4 xl3" *ngFor="let tenantVm of viewModel.tenants" [routerLink]="['/tenants/show', tenantVm._links.displayTenantVm.href]">
     <mui-card-content [title]="tenantVm.baseData.name">
       <p>{{ tenantVm.baseData.description }}</p>
       <div class="row">

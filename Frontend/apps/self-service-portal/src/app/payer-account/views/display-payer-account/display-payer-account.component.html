@@ -1,0 +1,23 @@
+<mui-view-header title="Payer Account">
+  <mui-view-header-action *ngIf="viewModel" actionName="Delete" iconName="delete" (tap)="deleteConfirmModal.open()"></mui-view-header-action>
+  <mui-view-header-action *ngIf="viewModel" actionName="Edit" iconName="edit" [routerLink]="['/payer-accounts/edit', viewModel._links.editPayerAccountVm.href]"></mui-view-header-action>
+</mui-view-header>
+
+<div class="row" *ngIf="viewModel">
+  <div class="col s12">
+      <h5>Base Data</h5>
+      <label>Cost Center</label>
+      <p>{{viewModel.baseData.costCenter}}</p>
+      <label>Profit Center</label>
+      <p>{{viewModel.baseData.profitCenter}}</p>
+      <label>Cost Center Responsible Principal Name</label>
+      <p>{{viewModel.baseData.costCenterResponsiblePrincipalName}}</p>
+      <label>Controlling Contact Principal Name</label>
+      <p>{{viewModel.baseData.controllingContactPrincipalName}}</p>
+  </div>
+</div>
+
+<mui-confirm-modal #deleteConfirmModal (confirmAction)="_onDelete()">
+  Do you really want to delete this payer account ({{viewModel?.baseData.costCenter}})?
+  <mui-confirm-modal-text-validation [confirmValue]="viewModel?.baseData.costCenter"></mui-confirm-modal-text-validation>
+</mui-confirm-modal>

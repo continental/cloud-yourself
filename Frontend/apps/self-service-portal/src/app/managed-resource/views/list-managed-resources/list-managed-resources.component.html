@@ -1,0 +1,24 @@
+<mui-view-header title="Managed Resources">
+  <mui-view-header-dropdown iconName="add">
+    <ul class="collection">
+        <li class="collection-item" *ngIf="viewModel?._links.addAzureManagedResourceVm"><a [routerLink]="['/managed-resources/create/azure', viewModel._links.addAzureManagedResourceVm.href]">Azure Managed Resource</a></li>
+    </ul>
+  </mui-view-header-dropdown>
+</mui-view-header>
+
+<div class="row" *ngIf="viewModel">
+  <mui-card class="col s12 m6 l4 xl3" *ngFor="let managedResourceVm of viewModel.managedResources">
+    <mui-card-content [title]="managedResourceVm.baseData.name">
+      <p>{{ managedResourceVm.baseData.description }}</p>
+      <div class="row">
+        <mui-card-content-metric class="col m6" title="Type">
+          {{ managedResourceVm.type | uppercase }}
+        </mui-card-content-metric>
+      </div>
+    </mui-card-content>
+    <mui-card-actions>
+      <a [routerLink]="['/managed-resources/display/' + managedResourceVm.type, managedResourceVm._links.displayManagedResourceVm.href]">Details</a>
+      <a *ngIf="managedResourceVm._links.createAzureManagedResourceDeploymentVm" [routerLink]="['/managed-resource-deployments/create/azure', managedResourceVm._links.createAzureManagedResourceDeploymentVm.href]">Deploy</a>
+    </mui-card-actions>
+  </mui-card>
+</div>

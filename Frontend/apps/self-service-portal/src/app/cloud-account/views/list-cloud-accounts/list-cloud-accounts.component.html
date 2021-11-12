@@ -1,9 +1,9 @@
 <mui-view-header title="Cloud Accounts">
-  <mui-view-header-action actionName="Request" iconName="add" [routerLink]="['/cloud-accounts/request', viewModel?._links.request.href]"></mui-view-header-action>
+  <mui-view-header-action *ngIf="viewModel" actionName="Request" iconName="add" [routerLink]="['/cloud-accounts/request', viewModel?._links?.requestCloudAccountVm.href]"></mui-view-header-action>
 </mui-view-header>
 
 <div class="row" *ngIf="viewModel">
-  <mui-card class="col s12 m6 l6 xl3" *ngFor="let cloudAccountVm of viewModel.cloudAccounts" [routerLink]="['/cloud-accounts/show', cloudAccountVm._links?.self?.href]">
+  <mui-card class="col s12 m6 l6 xl3" *ngFor="let cloudAccountVm of viewModel.cloudAccounts" [routerLink]="['/cloud-accounts/show', cloudAccountVm._links.displayCloundAccountVm.href]">
     <mui-card-content [title]="cloudAccountVm.baseData.name">
       <p>{{ cloudAccountVm.baseData.description }}</p>
       <div class="row">

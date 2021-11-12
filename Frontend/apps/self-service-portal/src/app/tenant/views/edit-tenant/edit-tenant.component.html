@@ -43,4 +43,17 @@
         </mui-card-content>
     </mui-card>
 
+    <mui-card class="col s12">
+        <mui-card-content title="AWS IAM Account Settings">
+            <p>Specifiy the AWS IAM Account for your AWS Organizations Master Account to read and create accounts and associated items.</p>
+            <form #awsIamAccountForm="ngForm">
+                <div class="row">
+                    <mui-text-box class="col s12" name="accessKeyId" label="Access Key Id" required minlength="5" [(ngModel)]="viewModel.awsIamAccount.accessKeyId"></mui-text-box>
+                    <mui-text-box class="col s12" name="secret" label="Secret" required type="password" [(ngModel)]="viewModel.awsIamAccount.secret"></mui-text-box>
+                </div>
+            </form>
+            <button class="btn" [disabled]="!awsIamAccountForm.valid" (click)="_onSave(viewModel.awsIamAccount)">Save</button>
+        </mui-card-content>
+    </mui-card>
+
 </div>

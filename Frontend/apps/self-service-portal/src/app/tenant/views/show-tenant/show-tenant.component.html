@@ -1,5 +1,6 @@
 <mui-view-header title="Tenant">
-    <mui-view-header-action *ngIf="viewModel" actionName="Edit" iconName="edit" [routerLink]="['/tenants/edit', viewModel._links.self.href]"></mui-view-header-action>
+    <mui-view-header-action *ngIf="viewModel" actionName="Edit" iconName="edit"
+        [routerLink]="['/tenants/edit', viewModel._links.editTenantVm.href]"></mui-view-header-action>
 </mui-view-header>
 
 <div class="row" *ngIf="viewModel">
@@ -10,6 +11,45 @@
         <label>Description</label>
         <p>{{viewModel.baseData.description}}</p>
     </div>
+    <mui-card class="col s12 m4">
+        <mui-card-content title="Managed Resources">
+            <p></p>
+            <div class="row">
+                <mui-card-content-metric class="col m6" title="Count">
+                    {{ viewModel.azureSummary.managedResourcesCount }}
+                </mui-card-content-metric>
+            </div>
+        </mui-card-content>
+        <mui-card-actions>
+            <a [routerLink]="['/managed-resources/list', viewModel._links.listManagedResourcesVm.href]">Display All</a>
+        </mui-card-actions>
+    </mui-card>
+    <mui-card class="col s12 m4">
+        <mui-card-content title="Payer Accounts">
+            <p></p>
+            <div class="row">
+                <mui-card-content-metric class="col m6" title="Count">
+                    {{ viewModel.billingSummary.payerAccountsCount }}
+                </mui-card-content-metric>
+            </div>
+        </mui-card-content>
+        <mui-card-actions>
+            <a [routerLink]="['/payer-accounts/list', viewModel._links.listPayerAccountsVm.href]">Display All</a>
+        </mui-card-actions>
+    </mui-card>
+    <mui-card class="col s12 m4">
+        <mui-card-content title="Cost Items">
+            <p></p>
+            <div class="row">
+                <mui-card-content-metric class="col m6" title="Count">
+                    {{ viewModel.billingSummary.costItemsCount }}
+                </mui-card-content-metric>
+            </div>
+        </mui-card-content>
+        <mui-card-actions>
+            <a [routerLink]="['/costs/cost-matrix', viewModel._links.costMatrixVm.href]">Display All</a>
+        </mui-card-actions>
+    </mui-card>
     <div class="col s12">
         <h5>Cloud Account Requests</h5>
         <p *ngIf="!viewModel.requestedCloudAccounts.length">Currently there are no cloud account requests.</p>
@@ -22,7 +62,8 @@
             <tr *ngFor="let ca of viewModel.requestedCloudAccounts">
                 <td>{{ca.baseData.name}}</td>
                 <td>{{ca.baseData.owner}}</td>
-                <td><button class="btn right" [disabled]="ca._tmp?.disableApprove" (click)="_onApproveCloudAccount(ca)"><i class="material-icons">check</i></button></td>
+                <td><button class="btn right" [disabled]="ca._tmp?.disableApprove"
+                        (click)="_onApproveCloudAccount(ca)"><i class="material-icons">check</i></button></td>
             </tr>
         </table>
     </div>

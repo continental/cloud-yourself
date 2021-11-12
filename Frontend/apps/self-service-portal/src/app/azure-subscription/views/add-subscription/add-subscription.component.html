@@ -1,0 +1,42 @@
+<mui-spinner *ngIf="_showSpinner"></mui-spinner>
+
+<mui-view-header title="Add Azure Subscription">
+</mui-view-header>
+
+
+<div class="row" *ngIf="viewModel">
+  <div class="col s12">
+      <mui-card>
+          <mui-card-content title="Create a New Subscription">
+            <p>Enter the name for the new Azure Subscription.</p>
+            <br>
+            <form #subscriptionForm="ngForm">
+              <div class="row">
+                <mui-text-box class="col s12" label="Name" name="name" required [(ngModel)]="viewModel.newTemplate.name"></mui-text-box>
+              </div>
+            </form>
+          </mui-card-content>
+          <mui-card-actions>
+            <button class="btn" [disabled]="!subscriptionForm.valid" (click)="_onCreate()">Create</button>
+          </mui-card-actions>
+      </mui-card>
+      <mui-card>
+          <mui-card-content title="Add an Existing Subscription">
+              <p>Choose an existing subscription to add to this cloud account.</p>
+              <br>
+              <form #tenantForm="ngForm">
+                <div class="row">
+                    <mui-select class="col s12" label="Subscription" name="subscription" required [options]="viewModel.unmanagedSubscriptions" optionLabelKey="name" optionValueKey="subscriptionId" [(ngModel)]="selectedSubscriptionId"></mui-select>
+                </div>
+            </form>
+            <div *ngIf="_selectedSubscription">
+              <label>Subscription ID</label>
+              <div>{{ _selectedSubscription.subscriptionId }}</div>
+            </div>
+          </mui-card-content>
+          <mui-card-actions>
+            <button class="btn" [disabled]="!_selectedSubscription" (click)="_onAdd()">Add</button>
+          </mui-card-actions>
+      </mui-card>
+  </div>
+</div>

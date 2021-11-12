@@ -1,0 +1,17 @@
+<mui-view-header title="Create Payer Account">
+</mui-view-header>
+
+<div class="row" *ngIf="viewModel">
+    <div class="col s12">
+        <p>Specify the details for the new payer account.</p>
+        <form #payerAccountForm="ngForm">
+            <div class="row">
+                <mui-text-box class="col s12" name="costCenter" label="Cost Center" required [(ngModel)]="viewModel.baseData.costCenter"></mui-text-box>
+                <mui-text-box class="col s12" name="profitCenter" label="Profit Center" required [(ngModel)]="viewModel.baseData.profitCenter"></mui-text-box>
+                <mui-text-box class="col s12" name="costCenterResponsiblePrincipalName" label="Cost Center Responsible Principal Name" required [(ngModel)]="viewModel.baseData.costCenterResponsiblePrincipalName"></mui-text-box>
+                <mui-text-box class="col s12" name="controllingContactPrincipalName" label="Controlling Contact Principal Name" required [(ngModel)]="viewModel.baseData.controllingContactPrincipalName"></mui-text-box>
+            </div>
+        </form>
+        <button class="btn" [disabled]="!payerAccountForm.valid" (click)="_onSave()">Save</button>
+    </div>
+</div>

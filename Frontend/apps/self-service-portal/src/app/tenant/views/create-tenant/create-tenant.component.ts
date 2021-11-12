@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HateoasClient, ResourceBase, ViewBase } from 'fancy-ngx-hateoas-client';
+import { HateoasClient, ViewBase } from 'fancy-ngx-hateoas-client';
 
 @Component({
   selector: 'app-create-tenant',

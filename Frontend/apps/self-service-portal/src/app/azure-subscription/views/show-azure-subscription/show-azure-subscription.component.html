@@ -1,18 +1,75 @@
 <mui-view-header title="Azure Subscription">
-    <mui-view-header-action *ngIf="viewModel" actionName="Cancel" iconName="cancel" (tap)="_onCancelSubscription()"></mui-view-header-action>
+    <mui-view-header-action *ngIf="viewModel?.state === 'Active'" actionName="Cancel" iconName="cancel"
+        (tap)="cancelConfirmModal.open()"></mui-view-header-action>
+    <mui-view-header-dropdown iconName="more_vert">
+        <ul class="collection" *ngIf="viewModel">
+            <li class="collection-item"><a target="_blank" href="https://portal.azure.com/#@8d4b558f-7b2e-40ba-ad1f-e04d79e6265a/resource/subscriptions/{{viewModel.subscriptionId}}/overview">Open in Azure Portal</a></li>
+            <li class="collection-item"><a [routerLink]="['/managed-resources/list', viewModel._links.listManagedResourcesVm.href]">Add Managed Resource</a></li>
+        </ul>
+    </mui-view-header-dropdown>
 </mui-view-header>
 
+
 <div class="row" *ngIf="viewModel">
-    <div class="col s12 m6">
-        <label>Name</label>
-        <p>{{viewModel.name}}</p>
-    </div>
-    <div class="col s12 m6">
-        <label>State</label>
-        <p>{{viewModel.state}}</p>
-    </div>
     <div class="col s12">
-        <label>Azure Subscription Link</label>
-        <p>{{viewModel.subscriptionLink}}</p>
+        <mui-card>
+            <mui-card-content title="Basic Info">
+                Basic Infos about the Subscription.
+                <div class="row">
+                    <mui-card-content-metric class="col s12" title="Name">
+                        {{viewModel.name}}
+                    </mui-card-content-metric>
+                    <mui-card-content-metric class="col s12" title="Id">
+                        {{viewModel.subscriptionId}}
+                    </mui-card-content-metric>
+                    <mui-card-content-metric class="col s12" title="State">
+                        {{viewModel.state}}
+                    </mui-card-content-metric>
+                </div>
+            </mui-card-content>
+        </mui-card>
+        <mui-card>
+            <mui-card-content title="Cost">
+                Current cost of the subscription.
+                <div class="row">
+                    <mui-card-content-metric class="col s6" title="Current Period" subtitle="{{viewModel.currentCost?.costDetails.periodBegin | date:'shortDate'}} - {{viewModel.currentCost?.costDetails.periodEnd | date:'shortDate'}}">
+                        {{viewModel.currentCost ?  viewModel.currentCost.costDetails.amount.toFixed(2) + ' ' + viewModel.currentCost.costDetails.currency: '-'}}
+                    </mui-card-content-metric>
+                    <mui-card-content-metric class="col s6" title="Previous Period" subtitle="{{viewModel.previousCost?.costDetails.periodBegin | date:'shortDate'}} - {{viewModel.previousCost?.costDetails.periodEnd | date:'shortDate'}}">
+                        {{viewModel.previousCost ? viewModel.previousCost.costDetails.amount.toFixed(2)  + ' ' + viewModel.previousCost.costDetails.currency: '-'}}
+                    </mui-card-content-metric>
+                </div>
+            </mui-card-content>
+        </mui-card>
+        <mui-card>
+            <mui-card-content title="Compliance">
+                Compliance state of the subscrition.
+                <div class="row">
+                    <mui-card-content-metric title="Status" class="col">
+                        <span *ngIf="viewModel.compliance.state === 'Unkown'"><i class="material-icons grey-text tiny">lens</i> Unknown</span>
+                        <span *ngIf="viewModel.compliance.state === 'Evaluating'"><i class="material-icons tiny">update</i> Evaluating</span>
+                        <span *ngIf="viewModel.compliance.state === 'Compliant'"><i class="material-icons green-text tiny">check_circle</i> Compliant</span>
+                        <span *ngIf="viewModel.compliance.state === 'NonCompliant'"><i class="material-icons red-text tiny">remove_circle</i> Not Compliant</span>
+                    </mui-card-content-metric>
+                </div>
+            </mui-card-content>
+        </mui-card>
+        <mui-card>
+            <mui-card-content title="Managed Resource Deployments">
+                Deployed managed resources in this subscription
+                <ul class="collection">
+                    <a *ngFor="let managedResourceDeployment of viewModel.managedResourceDeployments" class="collection-item" [routerLink]="['/managed-resource-deployments/display/azure', managedResourceDeployment._links.displayManagedResourceDeploymentVm.href]">
+                        <div>
+                            {{managedResourceDeployment.name}}<span class="secondary-content">{{managedResourceDeployment.state}}</span>
+                        </div>
+                    </a>
+                </ul>
+            </mui-card-content>
+        </mui-card>
     </div>
 </div>
+
+<mui-confirm-modal #cancelConfirmModal (confirmAction)="_onCancelSubscription()">
+    Do you really want to cancel this subscrition ({{viewModel?.name}})?
+    <mui-confirm-modal-text-validation [confirmValue]="viewModel?.name"></mui-confirm-modal-text-validation>
+</mui-confirm-modal>

@@ -1,0 +1,18 @@
+<mui-view-header title="Edit Allocation Key">
+</mui-view-header>
+
+<div class="row" *ngIf="viewModel">
+
+    <mui-card class="col s12">
+        <mui-card-content title="Base Data">
+            <p>Enter base data of the allocation key below.</p>
+            <form #baseDataForm="ngForm">
+                <div class="row">
+                    <mui-text-box class="col s12" name="percentage" label="Percentage" required [(ngModel)]="viewModel.baseData.allocationPercentage" pattern="^[1-9][0-9]?$|^100$"></mui-text-box>
+                </div>
+            </form>
+            <button class="btn" [disabled]="!baseDataForm.valid" (click)="_onSave(viewModel.baseData)">Save</button>
+        </mui-card-content>
+    </mui-card>
+
+</div>

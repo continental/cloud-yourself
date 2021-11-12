@@ -1,0 +1,33 @@
+<mui-spinner *ngIf="_showSpinner"></mui-spinner>
+
+<mui-view-header title="Add Aws Account">
+</mui-view-header>
+
+
+<div class="row" *ngIf="viewModel">
+  <div class="col s12">
+      <mui-card>
+          <mui-card-content title="Create a New AWS Account">
+            <p>Creating new AWS Accounts via Cloud Yourself is not yet supported.</p>
+          </mui-card-content>
+      </mui-card>
+      <mui-card>
+          <mui-card-content title="Add an Existing AWS Account">
+              <p>Choose an existing AWS Account to add to this cloud account.</p>
+              <br>
+              <form #tenantForm="ngForm">
+                <div class="row">
+                    <mui-select class="col s12" label="AWS Account" name="awsAccount" required [options]="viewModel.unmanagedAccounts" optionLabelKey="name" optionValueKey="awsAccountId" [(ngModel)]="selectedAccountId"></mui-select>
+                </div>
+            </form>
+            <div *ngIf="_selectedAccount">
+              <label>Account ID</label>
+              <div>{{ _selectedAccount.awsAccountId }}</div>
+            </div>
+          </mui-card-content>
+          <mui-card-actions>
+            <button class="btn" [disabled]="!_selectedAccount" (click)="_onAdd()">Add</button>
+          </mui-card-actions>
+      </mui-card>
+  </div>
+</div>

@@ -1,0 +1,32 @@
+<mui-view-header title="Azure Managed Resource">
+  <mui-view-header-action *ngIf="viewModel" actionName="Delete" iconName="delete" (tap)="deleteConfirmModal.open()"></mui-view-header-action>
+  <mui-view-header-action *ngIf="viewModel" actionName="Edit" iconName="edit" [routerLink]="['/managed-resources/edit/azure', viewModel._links.editManagedResourceVm.href]"></mui-view-header-action>
+</mui-view-header>
+
+<div class="row" *ngIf="viewModel">
+  <div class="col s12">
+      <h5>Base Data</h5>
+      <label>Name</label>
+      <p>{{viewModel.baseData.name}}</p>
+      <label>Description</label>
+      <p>{{viewModel.baseData.description}}</p>
+  </div>
+  <div class="col s12">
+    <h5>Compliance Settings</h5>
+    <label>Policy Initiative Assignment Name</label>
+    <p>{{viewModel.complianceSettings.initiativeAssignmentName}}</p>
+    <label>Policy Initiative Definition ID</label>
+    <p>{{viewModel.complianceSettings.initiativeDefinitionId}}</p>
+</div>
+  <div class="col s12">
+    <h5>ARM Template</h5>
+    <pre style="font-family: 'Courier New', Courier, monospace;">
+{{ viewModel.armTemplate.template }}
+    </pre>
+  </div>
+</div>
+
+<mui-confirm-modal #deleteConfirmModal (confirmAction)="_onDelete()">
+  Do you really want to delete this managed resource ({{viewModel?.baseData.name}})?
+  <mui-confirm-modal-text-validation [confirmValue]="viewModel?.baseData.name"></mui-confirm-modal-text-validation>
+</mui-confirm-modal>

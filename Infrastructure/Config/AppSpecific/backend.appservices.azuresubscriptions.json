@@ -1,5 +1,0 @@
-{
-    "ConnectionStrings": {
-        "DbConnection": "Server=infrastructure_sqlserver;Database=CloudYourself.AzureSubscriptions;User Id=sa;Password=Start@1357;"
-    }
-}

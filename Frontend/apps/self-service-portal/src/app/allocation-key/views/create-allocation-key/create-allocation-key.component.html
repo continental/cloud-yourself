@@ -1,0 +1,15 @@
+<mui-view-header title="Create Allocation Key">
+</mui-view-header>
+
+<div class="row" *ngIf="viewModel">
+  <div class="col s12">
+      <p>Specify the details for the new allocation key.</p>
+      <form #allocationKeyForm="ngForm">
+          <div class="row">
+            <mui-select class="col s12" name="payerAccountId" label="Payer Account" required [options]="viewModel.availablePayerAccounts" optionValueKey="id" [(ngModel)]="viewModel.payerAccountId"></mui-select>
+            <mui-text-box class="col s12" name="percentage" label="Percentage" required [(ngModel)]="viewModel.baseData.allocationPercentage" pattern="^[1-9][0-9]?$|^100$"></mui-text-box>
+          </div>
+      </form>
+      <button class="btn" [disabled]="!allocationKeyForm.valid" (click)="_onSave()">Save</button>
+  </div>
+</div>

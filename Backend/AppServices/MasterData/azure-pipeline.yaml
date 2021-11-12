@@ -1,0 +1,16 @@
+trigger:
+  branches:
+    include:
+    - feature/*
+    - enabler/*
+    - bugfix/*
+    - master
+  paths:
+    include:
+    - /Backend/AppServices/MasterData/
+extends:
+  template: ../../../Infrastructure/Pipelines/dotnet-docker-image.yaml
+  parameters:
+    projectPath: 'Backend/AppServices/MasterData'
+    imageName: 'cloudyourself-appservices-masterdata'
+    imageTag: '$(Build.BuildId)'

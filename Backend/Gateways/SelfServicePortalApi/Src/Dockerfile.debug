@@ -1,0 +1,12 @@
+FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim
+
+#Install debugger
+RUN apt-get update
+RUN apt-get install curl -y unzip
+RUN curl -sSL https://aka.ms/getvsdbgsh | bash /dev/stdin -v latest -l /vsdbg
+
+WORKDIR /app
+EXPOSE 80
+
+#Keep the debugger container on
+ENTRYPOINT ["tail", "-f", "/dev/null"]

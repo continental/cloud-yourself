@@ -2,7 +2,7 @@
 </mui-view-header>
 
 <div class="row" *ngIf="viewModel">
-  <mui-card class="col s12 m6" [routerLink]="['/tenants/list', viewModel._links.tenants.href]">
+  <mui-card class="col s12 m6" [routerLink]="['/tenants/list', viewModel._links.listTenantsVm.href]">
     <mui-card-content title="Tenants">
       <p></p>
       <div class="row">
@@ -12,7 +12,7 @@
       </div>
     </mui-card-content>
   </mui-card>
-  <mui-card class="col s12 m6" [routerLink]="['/cloud-accounts/list', viewModel._links.cloudAccounts.href]">
+  <mui-card class="col s12 m6" [routerLink]="['/cloud-accounts/list', viewModel._links.listCloudAccountsVm.href]">
     <mui-card-content title="Cloud Accounts">
       <p></p>
       <div class="row">

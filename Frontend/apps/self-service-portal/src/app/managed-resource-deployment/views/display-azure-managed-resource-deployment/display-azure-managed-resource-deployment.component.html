@@ -1,0 +1,86 @@
+<mui-view-header title="Azure Managed Resource Deployment">
+  <!-- <mui-view-header-action *ngIf="viewModel" actionName="Delete" iconName="delete" (tap)="deleteConfirmModal.open()"></mui-view-header-action> -->
+</mui-view-header>
+
+<div class="row" *ngIf="viewModel">
+  <div class="col s12">
+    <h5>Managed Resource</h5>
+    <label>Name</label>
+    <p>{{viewModel.managedResource.baseData.name}}</p>
+    <label>Description</label>
+    <p>{{viewModel.managedResource.baseData.description}}</p>
+  </div>
+</div>
+
+<div class="row" *ngIf="viewModel">
+  <div class="col s12">
+    <h5>Subscription Compliance State</h5>
+    <span *ngIf="viewModel.complianceState === 'Unkown'"><i class="material-icons grey-text tiny">lens</i> Unknown</span>
+    <span *ngIf="viewModel.complianceState === 'Evaluating'"><i class="material-icons tiny">update</i> Evaluating</span>
+    <span *ngIf="viewModel.complianceState === 'Compliant'"><i class="material-icons green-text tiny">check_circle</i> Compliant</span>
+    <span *ngIf="viewModel.complianceState === 'NonCompliant'"><i class="material-icons red-text tiny">remove_circle</i> Not Compliant</span>
+  </div>
+</div>
+
+<div class="row" *ngIf="viewModel?.error">
+  <div class="col red-text">
+    <h5>Error on {{viewModel.error.errorAction}}: {{viewModel.error.errorCode}}</h5>
+    <p>{{viewModel.error.errorMessage}}</p>
+  </div>
+</div>
+
+<div class="row" *ngIf="viewModel">
+  <div class="col s12 m4">
+    <mui-card>
+      <mui-card-content title="Create">
+        <div class="row">
+          <mui-card-content-metric title="Status" class="col">
+            <i class="material-icons" [class.green-text]="true">check_circle</i>
+          </mui-card-content-metric>
+          <mui-card-content-metric title="Executed on" class="col">
+            {{viewModel.createdDate | date:'dd.MM.YYYY'}}
+          </mui-card-content-metric>
+        </div>
+      </mui-card-content>
+    </mui-card>
+  </div>
+  <div class="col s12 m4">
+    <mui-card>
+      <mui-card-content title="Prepare">
+        <div class="row">
+          <mui-card-content-metric title="Status" class="col">
+            <i class="material-icons" [class.green-text]="viewModel.prepareDate">check_circle</i>
+          </mui-card-content-metric>
+          <mui-card-content-metric title="Executed on" class="col">
+            {{viewModel.prepareDate ? (viewModel.prepareDate | date) : '-'}}
+          </mui-card-content-metric>
+        </div>
+      </mui-card-content>
+      <mui-card-actions>
+        <button class="btn" (click)="_onPrepare()">Execute</button>
+      </mui-card-actions>
+    </mui-card>
+  </div>
+  <div class="col s12 m4">
+    <mui-card>
+      <mui-card-content title="Commit">
+        <div class="row">
+          <mui-card-content-metric title="Status" class="col">
+            <i class="material-icons" [class.green-text]="viewModel.commitDate">check_circle</i>
+          </mui-card-content-metric>
+          <mui-card-content-metric title="Executed on" class="col">
+            {{viewModel.commitDate ? (viewModel.commitDate | date) : '-'}}
+          </mui-card-content-metric>
+        </div>
+      </mui-card-content>
+      <mui-card-actions>
+        <button class="btn" [disabled]="!viewModel._actions.commit" (click)="_onCommit()">Execute</button>
+      </mui-card-actions>
+    </mui-card>
+  </div>
+</div>
+
+<mui-confirm-modal #deleteConfirmModal (confirmAction)="_onDelete()">
+  Do you really want to delete this managed resource deployment ({{viewModel?.name}})?
+  <mui-confirm-modal-text-validation [confirmValue]="viewModel?.name"></mui-confirm-modal-text-validation>
+</mui-confirm-modal>

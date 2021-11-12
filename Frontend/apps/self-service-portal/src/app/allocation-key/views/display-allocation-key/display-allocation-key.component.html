@@ -1,0 +1,38 @@
+<mui-view-header title="Allocation Key">
+  <mui-view-header-action *ngIf="viewModel" actionName="Delete" iconName="delete" (tap)="deleteConfirmModal.open()">
+  </mui-view-header-action>
+  <mui-view-header-action *ngIf="viewModel" actionName="Edit" iconName="edit"
+    [routerLink]="['/allocation-keys/edit', viewModel._links.editAllocationKeyVm.href]"></mui-view-header-action>
+</mui-view-header>
+
+<div class="row" *ngIf="viewModel">
+  <div class="col s12">
+    <h5>Cloud Account</h5>
+  </div>
+  <div class="col s12">
+    <label>Name</label>
+    <p>{{viewModel.cloudAccount.baseData.name}}</p>
+    <label>Description</label>
+    <p>{{viewModel.cloudAccount.baseData.description}}</p>
+  </div>
+  <div class="col s12">
+    <blockquote>
+      <p class="flow-text">allocates {{ viewModel.baseData.allocationPercentage }} % to</p>
+    </blockquote>
+  </div>
+  <div class="col s12">
+    <h5>Payer Account</h5>
+  </div>
+  <div class="col s6">
+    <label>Cost Center</label>
+    <p>{{ viewModel.payerAccount.baseData.costCenter }}</p>
+    <label>Profit Center</label>
+    <p>{{ viewModel.payerAccount.baseData.profitCenter }}</p>
+  </div>
+</div>
+
+<mui-confirm-modal #deleteConfirmModal (confirmAction)="_onDelete()">
+  Do you really want to delete this allocation key ({{viewModel?.payerAccount.baseData.costCenter}})?
+  <mui-confirm-modal-text-validation [confirmValue]="viewModel?.payerAccount.baseData.costCenter">
+  </mui-confirm-modal-text-validation>
+</mui-confirm-modal>

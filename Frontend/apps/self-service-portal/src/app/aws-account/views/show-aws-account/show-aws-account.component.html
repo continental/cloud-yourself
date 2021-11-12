@@ -1,0 +1,36 @@
+<mui-view-header title="Aws Account">
+</mui-view-header>
+
+<div class="row" *ngIf="viewModel">
+  <div class="col s12">
+      <mui-card>
+          <mui-card-content title="Basic Info">
+              Basic Infos about the Account.
+              <div class="row">
+                  <mui-card-content-metric class="col s12" title="Name">
+                      {{viewModel.name}}
+                  </mui-card-content-metric>
+                  <mui-card-content-metric class="col s12" title="Id">
+                      {{viewModel.awsAccountId}}
+                  </mui-card-content-metric>
+                  <mui-card-content-metric class="col s12" title="State">
+                      {{viewModel.state}}
+                  </mui-card-content-metric>
+              </div>
+          </mui-card-content>
+      </mui-card>
+      <mui-card>
+        <mui-card-content title="Cost">
+            Current cost of the account.
+            <div class="row">
+                <mui-card-content-metric class="col s6" title="Current Period" subtitle="{{viewModel.currentCost?.costDetails.periodBegin | date:'shortDate'}} - {{viewModel.currentCost?.costDetails.periodEnd | date:'shortDate'}}">
+                    {{viewModel.currentCost ?  viewModel.currentCost.costDetails.amount.toFixed(2) + ' ' + viewModel.currentCost.costDetails.currency: '-'}}
+                </mui-card-content-metric>
+                <mui-card-content-metric class="col s6" title="Previous Period" subtitle="{{viewModel.previousCost?.costDetails.periodBegin | date:'shortDate'}} - {{viewModel.previousCost?.costDetails.periodEnd | date:'shortDate'}}">
+                    {{viewModel.previousCost ? viewModel.previousCost.costDetails.amount.toFixed(2)  + ' ' + viewModel.previousCost.costDetails.currency: '-'}}
+                </mui-card-content-metric>
+            </div>
+        </mui-card-content>
+    </mui-card>
+  </div>
+</div>

@@ -13,8 +13,8 @@
           </div>
         </li>
         <li><a class="waves-effect" routerLink="/home"><i class="material-icons">home</i>Home</a></li>
-        <li><a class="waves-effect" [routerLink]="['/tenants/list', viewModel._links?.tenants?.href]"><i class="material-icons">folder</i>Tenants</a></li>
-        <li><a class="waves-effect" [routerLink]="['/cloud-accounts/list', viewModel._links?.cloudAccounts?.href]"><i class="material-icons">cloud</i>Cloud Accounts</a></li>
+        <li><a class="waves-effect" [routerLink]="['/tenants/list', viewModel._links?.listTenantsVm?.href]"><i class="material-icons">folder</i>Tenants</a></li>
+        <li><a class="waves-effect" [routerLink]="['/cloud-accounts/list', viewModel._links?.listCloudAccountsVm?.href]"><i class="material-icons">cloud</i>Cloud Accounts</a></li>
     </mui-side-nav>
 
     <mui-push-content>

@@ -1,3 +1,6 @@
+> **Note**
+> This project is currently not actively maintained.
+
 # Cloud Yourself
 Cloud Yourself is a self service portal with an automation backend and corresponding APIs to handle decentral managed cloud accounts containing independend workloads in enterprise environments. It helps employees with and without any cloud know how to easily create cloud accounts and to deploy decentral managed workloads but still ensuring that all enterprise compliance and security requirements are met.
 
